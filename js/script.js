@@ -1,6 +1,5 @@
-let numberOfRounds = 0, currentRound = 0, totalScore = 0;
-let userName;
-const nameForm = document.querySelector('#namnInput');
+let numberOfRounds = 0, currentRound = 0, totalScore = 0, userName;
+const nameForm = document.querySelector('#nameInput');
 const rollDice = document.querySelector('#rollDice');
 const saveScore = document.querySelector('#saveScore');
 const resetBtn = document.querySelector('#resetBtn');
@@ -8,6 +7,8 @@ const resetBtn = document.querySelector('#resetBtn');
 function handleName(event) {
     event.preventDefault();
     userName = nameForm.querySelector('input').value;
+    nameForm.style.display = 'none';
+
     console.log(userName)
     nameForm.reset();
 }
@@ -41,10 +42,10 @@ function saveCurrentRound() {
     numberOfRounds++;
     document.querySelector('#totalRounds').innerText = `Antal omgångar: ${numberOfRounds}`;
     document.querySelector('#totalScore').innerText = `Total summa: ${totalScore}`;
-
+    
     currentRound = 0;
     document.querySelector('#currentRound').innerText = `Omgångens poäng: ${currentRound}`;
-
+    
     if (totalScore >= 100) {
         document.querySelector('#popupEl').innerText = `Grattis ${userName}, du har vunnit med ${totalScore} poäng på ${numberOfRounds} omgångar!`;
     }
@@ -52,13 +53,16 @@ function saveCurrentRound() {
 
 resetGame();
 nameForm.addEventListener('submit', handleName);
-resetBtn.addEventListener('click', resetGame)
+resetBtn.addEventListener('click', resetGame);
 
 function resetGame() {
     numberOfRounds = 0;
     totalScore = 0;
     currentRound = 0;
 
+    nameForm.style.display = 'block';
+    document.querySelector('#diceRoll').innerText = '';
+    document.querySelector('#popupEl').innerText = '';
     document.querySelector('#totalRounds').innerText = `Antal omgångar: ${numberOfRounds}`;
     document.querySelector('#totalScore').innerText = `Total summa: ${totalScore}`;
     document.querySelector('#currentRound').innerText = `Omgångens poäng: ${currentRound}`;
