@@ -3,13 +3,21 @@ const nameForm = document.querySelector('#nameInput');
 const rollDice = document.querySelector('#rollDice');
 const saveScore = document.querySelector('#saveScore');
 const resetBtn = document.querySelector('#resetBtn');
+rollDice.disabled = true;
+saveScore.disabled = true;
 
 function handleName(event) {
     event.preventDefault();
     userName = nameForm.querySelector('input').value;
-    nameForm.style.display = 'none';
-
-    console.log(userName)
+    if (userName !== '') {
+        nameForm.style.display = 'none';
+        rollDice.disabled = false;
+        saveScore.disabled = false;
+    }
+    else{
+        alert("Vänligen skriv in ett namn för att starta spelet!");
+    }
+    console.log(userName);
     nameForm.reset();
 }
 
@@ -42,10 +50,10 @@ function saveCurrentRound() {
     numberOfRounds++;
     document.querySelector('#totalRounds').innerText = `Antal omgångar: ${numberOfRounds}`;
     document.querySelector('#totalScore').innerText = `Total summa: ${totalScore}`;
-    
+
     currentRound = 0;
     document.querySelector('#currentRound').innerText = `Omgångens poäng: ${currentRound}`;
-    
+
     if (totalScore >= 100) {
         document.querySelector('#popupEl').innerText = `Grattis ${userName}, du har vunnit med ${totalScore} poäng på ${numberOfRounds} omgångar!`;
     }
@@ -61,6 +69,9 @@ function resetGame() {
     currentRound = 0;
 
     nameForm.style.display = 'block';
+    rollDice.disabled = true;
+    saveScore.disabled = true;
+    
     document.querySelector('#diceRoll').innerText = '';
     document.querySelector('#popupEl').innerText = '';
     document.querySelector('#totalRounds').innerText = `Antal omgångar: ${numberOfRounds}`;
